@@ -3,8 +3,11 @@
 # This script randomizes your Mac Address, HostName, 
 # LocalHostName, and ComputerName
 
-
 clear
+
+sudo echo "Randomize Name?(y/n)"
+
+read char
 
 FILE=macaddress.conf
 
@@ -34,7 +37,11 @@ sp="/-\|"
 
 echo -e
 
-echo "===Mac Address and Name Changer==="
+echo "===Mac Address and Name Randomizer==="
+
+
+if [[ char == y ]]
+then
 
 RandomName=$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
 
@@ -47,6 +54,10 @@ sudo scutil --set ComputerName $RandomName
 echo -e
 
 echo "Name Changed Successfully"
+
+else
+	echo ""
+fi
 
 #----------------------------------------------------
 
