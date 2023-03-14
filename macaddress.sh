@@ -3,17 +3,33 @@
 # This script randomizes your Mac Address, HostName, 
 # LocalHostName, and ComputerName
 
+sudo printf ""
+
 clear
 
-sudo echo "Randomize Name?(y/n)"
+#Title
+echo "===Mac Address and Name Randomizer==="
+
+echo -e
+
+#Query
+printf "Randomize Name?(y/n):"
 
 read char
+
+clear
+
+echo "===Mac Address and Name Randomizer==="
+
+echo -e
+
+#---Config File-------------------------------
 
 FILE=macaddress.conf
 
 if test -f "$FILE"
 then
-    echo ""
+    printf ""
 else
 
 	echo "Number after 'en' in Interface Name:"
@@ -33,12 +49,10 @@ int=$(cat macaddress.conf)
 i=1
 sp="/-\|"
 
+#----------------------------------------------------
+
+
 #---Name Randomization-------------------------------
-
-echo -e
-
-echo "===Mac Address and Name Randomizer==="
-
 
 if [[ char == y ]]
 then
@@ -62,12 +76,11 @@ fi
 #----------------------------------------------------
 
 
-
 #---Mac Address Randomization------------------------
 
 OldAddress=$(Ifconfig en$int |grep ether)
 
-echo -e
+#echo -e
 
 echo "+-------------------------------+"
 
@@ -88,6 +101,7 @@ do
 
 	sudo networksetup -setnetworkserviceenabled Wi-Fi on
 
+#Oligatory spinner
 	sleep 0.5
 
 	printf "\b${sp:i++%${#sp}:1}"
@@ -116,13 +130,16 @@ done
 
 clear
 
-echo -e
-
 echo "===Mac Address and Name Changer==="
 
 echo -e
 
+if [[ char == y ]]
+then
 echo "Name Changed Successfully"
+else 
+	printf ""
+fi
 
 echo -e
 
