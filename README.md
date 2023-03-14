@@ -1,1 +1,1 @@
-# Mac address and name randomizer for macOS
+# Mac Address and Name Randomizer for macOS
