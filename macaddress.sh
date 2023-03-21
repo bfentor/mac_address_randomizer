@@ -54,7 +54,7 @@ sp="/-\|"
 
 #---Name Randomization-------------------------------
 
-if [[ char == y ]]
+if [[ $char == y ]]
 then
 
 RandomName=$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
@@ -65,9 +65,9 @@ sudo scutil --set LocalHostName $RandomName
 
 sudo scutil --set ComputerName $RandomName
 
-echo -e
-
 echo "Name Changed Successfully"
+
+echo -e
 
 else
 	echo ""
@@ -134,7 +134,7 @@ echo "===Mac Address and Name Changer==="
 
 echo -e
 
-if [[ char == y ]]
+if [[ $char == y ]]
 then
 echo "Name Changed Successfully"
 else 
