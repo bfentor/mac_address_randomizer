@@ -102,9 +102,6 @@ do
 	sudo networksetup -setnetworkserviceenabled Wi-Fi on
 
 #Oligatory spinner
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
 
 	sleep 0.5
 
@@ -123,6 +120,8 @@ do
 	printf "\b${sp:i++%${#sp}:1}"
 
 	sleep 0.5
+
+	printf "\b${sp:i++%${#sp}:1}"
 
 	sudo ifconfig en$int ether $NewAddress
 
