@@ -13,6 +13,7 @@ echo "===Mac Address and Name Randomizer==="
 echo -e
 
 #Query
+
 printf "Randomize Name?(y/n):"
 
 read char
@@ -43,7 +44,7 @@ else
 #	echo $(cat macaddress.conf)
 fi
 
-int=$(cat macaddress.conf)
+int=$(sed -n '1p' macaddress.conf)
 
 #Counting Var for Spinner
 i=1
