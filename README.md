@@ -16,5 +16,4 @@ menu bar.
 $ ./macaddress.sh
 
 $ ./revert.sh
-
 ```
