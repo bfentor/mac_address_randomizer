@@ -9,11 +9,14 @@ menu bar.
 ## Executing the script:
 
 ```
-# chmod +x /PATHTOSCRIPT/macaddress.sh
-
-# chmod +x /PATHTOSCRIPT/revert.sh
-
-$ ./macaddress.sh
-
+chmod +x /PATHTOSCRIPT/macaddress.sh
+```
+```
+chmod +x /PATHTOSCRIPT/revert.sh
+```
+```
+./macaddress.sh
+```
+```
 $ ./revert.sh
 ```
