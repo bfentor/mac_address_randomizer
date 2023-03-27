@@ -15,9 +15,13 @@ else
 
 	read interfaceNumber
 
-	echo $interfaceNumber > macaddress.conf
+	echo $interfaceNumber >> macaddress.conf
 
-	echo $(Ifconfig en$interfaceNumber |grep ether) >> macaddress.conf
+	originalAddress=$(ifconfig en1 | grep ether)
+
+	originalAddressTrunc=${originalAddress:7}
+
+	echo $originalAddressTrunc >> macaddress.conf
 
 	echo -e $(sudo scutil --get HostName) >> macaddress.conf
 
@@ -65,7 +69,7 @@ do
 
 	printf "\b${sp:i++%${#sp}:1}"
 
-	sudo ifconfig en$int ether $NewAddress
+	sudo ifconfig en$interfaceNumberTrunc ether $NewAddress
 
 done
 
