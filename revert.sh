@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-FILE=macaddress.conf
+FILE=~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf
 
 if test -f "$FILE"
 then
-	interfaceNumber=$(sed -n '1p' macaddress.conf)
-	originalHostName=$(sed -n '2p' macaddress.conf)
-	originalLocalHostName=$(sed -n '3p' macaddress.conf)
-	originalComputerName=$(sed -n '4p' macaddress.conf)
-	originalAddress=$(sed -n '5p' macaddress.conf)
+	interfaceNumber=$(sed -n '1p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalHostName=$(sed -n '2p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalLocalHostName=$(sed -n '3p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalComputerName=$(sed -n '4p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalAddress=$(sed -n '5p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
 else
 
 	echo "Number after 'en' in Interface Name:"
@@ -21,18 +21,18 @@ else
 
 	originalAddressTrunc=${originalAddress:7}
 
-	echo -e $(sudo scutil --get HostName) >> macaddress.conf
+	echo -e $(sudo scutil --get HostName) >> ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf
 
-	echo -e $(sudo scutil --get LocalHostName) >> macaddress.conf
+	echo -e $(sudo scutil --get LocalHostName) >> ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf
 
-	echo -e $(sudo scutil --get ComputerName) >> macaddress.conf
+	echo -e $(sudo scutil --get ComputerName) >> ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf
 
-	echo $originalAddressTrunc >> macaddress.conf
+	echo $originalAddress >> ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf
 
-	originalHostName=$(sed -n '2p' macaddress.conf)
-	originalLocalHostName=$(sed -n '3p' macaddress.conf)
-	originalComputerName=$(sed -n '4p' macaddress.conf)
-	originalAddress=$(sed -n '5p' macaddress.conf)
+	originalHostName=$(sed -n '2p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalLocalHostName=$(sed -n '3p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalComputerName=$(sed -n '4p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
+	originalAddress=$(sed -n '5p' ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf)
 
 fi
 
@@ -40,40 +40,40 @@ previousAddress=$(ifconfig en$interfaceNumber |grep ether)
 
 previousAddressTrunc=${previousAddress:7}
 
-while [[ $(ifconfig en$interfaceNumber |grep ether) == $previousAddress ]]
-do
-	
-	sudo networksetup -setnetworkserviceenabled Wi-Fi off
-
+#while [[ $(ifconfig en$interfaceNumber |grep ether) == $previousAddress ]]
+#do
+#	
+#	sudo networksetup -setnetworkserviceenabled Wi-Fi off
+#
 	NewAddress=$originalAddress
-
-	sudo networksetup -setnetworkserviceenabled Wi-Fi on
-
+#
+#	sudo networksetup -setnetworkserviceenabled Wi-Fi on
+#
 #Obligatory spinner
+#
+#	sleep 0.5
+#
+#	printf "\b${sp:i++%${#sp}:1}"
+#
+#	sleep 0.5
+#
+#	printf "\b${sp:i++%${#sp}:1}"
+#
+#	sleep 0.5
+#
+#	printf "\b${sp:i++%${#sp}:1}"
+#
+#	sleep 0.5
+#
+#	printf "\b${sp:i++%${#sp}:1}"
+#
+#	sleep 0.5
+#
+#	printf "\b${sp:i++%${#sp}:1}"
 
-	sleep 0.5
+sudo ifconfig en$interfaceNumber ether $originalAddress
 
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sudo ifconfig en$interfaceNumber ether $NewAddress
-
-done
+#done
 
 sudo scutil --set HostName $originalHostName
 
