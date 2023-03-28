@@ -26,7 +26,7 @@ echo -e
 
 #---Config File-------------------------------
 
-FILE=macaddress.conf
+FILE=/Library/Mac_Address_Randomizer/macaddress.conf
 
 if test -f "$FILE"
 then
@@ -37,14 +37,18 @@ else
 
 	read int
 
-	touch macaddress.conf
+	sudo mkdir /Library/Mac_Address_Randomizer/
 
-	echo $int > macaddress.conf
+	sudo touch /Library/Mac_Address_Randomizer/macaddress.conf
+
+	echo $int | sudo tee -a /Library/Mac_Address_Randomizer/macaddress.conf
+
+#	sudo echo $int >> /Library/Mac_Address_Randomizer/macaddress.conf
 
 #	echo $(cat macaddress.conf)
 fi
 
-int=$(sed -n '1p' macaddress.conf)
+int=$(sed -n '1p' /Library/Mac_Address_Randomizer/macaddress.conf)
 
 #Counting Var for Spinner
 i=1
