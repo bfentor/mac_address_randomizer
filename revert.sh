@@ -19,7 +19,7 @@ else
 
 	originalAddress=$(ifconfig en1 | grep ether)
 
-	originalAddressTrunc=${originalAddress:7}
+#	originalAddressTrunc=${originalAddress:7}
 
 	echo -e $(sudo scutil --get HostName) >> ~/Documents/Networking/Mac_Address_Randomizer/macaddress.conf
 
@@ -39,37 +39,6 @@ fi
 previousAddress=$(ifconfig en$interfaceNumber |grep ether)
 
 previousAddressTrunc=${previousAddress:7}
-
-#while [[ $(ifconfig en$interfaceNumber |grep ether) == $previousAddress ]]
-#do
-#	
-#	sudo networksetup -setnetworkserviceenabled Wi-Fi off
-#
-	NewAddress=$originalAddress
-#
-#	sudo networksetup -setnetworkserviceenabled Wi-Fi on
-#
-#Obligatory spinner
-#
-#	sleep 0.5
-#
-#	printf "\b${sp:i++%${#sp}:1}"
-#
-#	sleep 0.5
-#
-#	printf "\b${sp:i++%${#sp}:1}"
-#
-#	sleep 0.5
-#
-#	printf "\b${sp:i++%${#sp}:1}"
-#
-#	sleep 0.5
-#
-#	printf "\b${sp:i++%${#sp}:1}"
-#
-#	sleep 0.5
-#
-#	printf "\b${sp:i++%${#sp}:1}"
 
 sudo ifconfig en$interfaceNumber ether $originalAddress
 
