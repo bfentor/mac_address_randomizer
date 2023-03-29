@@ -12,8 +12,7 @@ Making them executable:
 
 ```
 chmod +x /PATHTOSCRIPT/macaddress.sh
-```
-```
+
 chmod +x /PATHTOSCRIPT/revert.sh
 ```
 
