@@ -21,7 +21,6 @@ Executing the scripts:
 
 ```
 ./macaddress.sh
-```
-```
+
 ./revert.sh
 ```
