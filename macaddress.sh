@@ -99,34 +99,8 @@ echo -e
 
 while [[ $(ifconfig en$int |grep ether) == $OldAddress ]]
 do
-	
-	sudo networksetup -setnetworkserviceenabled Wi-Fi off
 
 	NewAddress=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
-
-	sudo networksetup -setnetworkserviceenabled Wi-Fi on
-
-#Oligatory spinner
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
-
-	sleep 0.5
-
-	printf "\b${sp:i++%${#sp}:1}"
 
 	sudo ifconfig en$int ether $NewAddress
 
