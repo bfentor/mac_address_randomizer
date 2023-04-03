@@ -106,6 +106,10 @@ do
 
 done
 
+# restart network interface
+
+sudo networksetup -setnetworkserviceenabled Wi-Fi off && sudo networksetup -setnetworkserviceenabled Wi-Fi off && sudo networksetup -setnetworkserviceenabled Wi-Fi on
+
 clear
 
 echo "===Mac Address and Name Changer==="
