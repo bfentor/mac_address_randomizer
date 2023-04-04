@@ -23,7 +23,7 @@ else
 
 #	echo $interfaceNumber >> /Library/Mac_Address_Randomizer/macaddress.conf
 
-	originalAddress=$(ifconfig en1 | grep ether)
+	originalAddress=$(ifconfig en$interfaceNumber | grep ether)
 
 	originalAddressTrunc=${originalAddress:7}
 
