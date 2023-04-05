@@ -87,5 +87,8 @@ do
   ((i=i+1))
 done
 
+sudo networksetup -setnetworkserviceenabled Wi-Fi off && sudo networksetup -setnetworkserviceenabled Wi-Fi off && sudo networksetup -setnetworkserviceenabled Wi-Fi on
+
+dscacheutil -flushcache
 
 echo "Success"

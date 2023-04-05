@@ -50,10 +50,6 @@ fi
 
 int=$(sed -n '1p' /Library/Mac_Address_Randomizer/macaddress.conf)
 
-#Counting Var for Spinner
-i=1
-sp="/-\|"
-
 #----------------------------------------------------
 
 
