@@ -33,19 +33,33 @@ then
     printf ""
 else
 
-	echo "Number after 'en' in Interface Name:"
+#	echo "Number after 'en' in Interface Name:"
 
-	read int
+#	read int
+
+    # Get the active network interface name
+    active_interface=$(route get default | awk '/interface: /{print $2}')
+
+    # Extract the number from the interface name
+    int=$(echo "$active_interface" | grep -oE '[0-9]+')
 
 	sudo mkdir /Library/Mac_Address_Randomizer/
 
 	sudo touch /Library/Mac_Address_Randomizer/macaddress.conf
 
+    originalAddress=$(ifconfig en$int | grep ether)
+
+    originalAddressTrunc=${originalAddress:7}
+
 	echo $int | sudo tee -a /Library/Mac_Address_Randomizer/macaddress.conf
 
-#	sudo echo $int >> /Library/Mac_Address_Randomizer/macaddress.conf
+    echo $(sudo scutil --get HostName) | sudo tee -a /Library/Mac_Address_Randomizer/macaddress.conf
 
-#	echo $(cat macaddress.conf)
+    echo $(sudo scutil --get LocalHostName) | sudo tee -a /Library/Mac_Address_Randomizer/macaddress.conf
+
+    echo $(sudo scutil --get ComputerName) | sudo tee -a /Library/Mac_Address_Randomizer/macaddress.conf
+
+    echo $originalAddressTrunc | sudo tee -a /Library/Mac_Address_Randomizer/macaddress.conf
 fi
 
 int=$(sed -n '1p' /Library/Mac_Address_Randomizer/macaddress.conf)
