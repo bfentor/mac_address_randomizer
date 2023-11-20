@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # This script randomizes your Mac Address, HostName, 
 # LocalHostName, and ComputerName
@@ -28,13 +28,15 @@ echo -e
 
 FILE=~/Documents/Mac_Address_Randomizer/macaddress.conf
 
+active_interface=$(ip a | grep -oP '(?<=^\d: )[^:]+' | grep -v "lo")
+
 if test -f "$FILE"
 then
     printf ""
 else
 
     # Get the active network interface name
-    active_interface=$(ip -o -4 route show to default | awk '{print $5}')
+	#active_interface=$(ip -o -4 route show to default | awk '{print $5}')
 
     # Extract the number from the interface name
 	# int=$(echo "$active_interface" | grep -oE '[0-9]+')
@@ -89,30 +91,38 @@ OldAddress=$(ip link show $active_interface | awk '/link\/ether/ {print $2}')
 
 #echo -e
 
-echo "+-------------------------------+"
+echo "+---------------------+"
 
-echo "| 		Old Mac Address |" 
+echo "|   Old Mac Address   |"
 
-echo "|${OldAddress:17:35}|"
+echo "|  $OldAddress  |"
 
-echo "+-------------------------------+"
+echo "+---------------------+"
 
 echo -e
 
-sudo ifconfig wlan0 down
+echo "$active_interface"
+
+echo $(ip link show $active_interface | awk '/link\/ether/ {print $2}')
+
+echo $active_interface
+
+#exit 1
+
+#sudo ifconfig $active_interface down
 
 while [[ $(ip link show $active_interface | awk '/link\/ether/ {print $2}') == $OldAddress ]]
 do
 
 	NewAddress=$(openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/.$//')
 
-	sudo ifconfig wlan0 hw ether $NewAddress
+	sudo ifconfig $active_interface hw ether $NewAddress
 
 done
 
 # restart network interface
 
- sudo ifconfig wlan0 up
+ sudo ifconfig $active_interface up
 
 clear
 
@@ -129,13 +139,13 @@ fi
 
 echo -e
 
-echo "+-------------------------------+"
+echo "+---------------------+"
 
-echo "| 		Old Mac Address |" 
+echo "|   Old Mac Address   |"
 
-echo "|${OldAddress:17:35}|"
+echo "|  $OldAddress  |"
 
-echo "+-------------------------------+"
+echo "+---------------------+"
 
 echo -e
 
@@ -147,25 +157,28 @@ echo -e
 
 if [[ $(ip link show $active_interface | awk '/link\/ether/ {print $2}') != $OldAddress ]]
 then
-#	dscacheutil -flushcache
 
 echo -e
 
-echo "+-------------------------------+"
-
-echo "| 		New Mac Address |" 
-
 temp=$(ip link show $active_interface | awk '/link\/ether/ {print $2}')
 
-echo "|${temp:17:35}|"
+echo "+---------------------+"
 
-echo "+-------------------------------+"
+echo "|   New Mac Address   |"
+
+echo "|  $temp  |"
+
+echo "+---------------------+"
 
 echo -e
 
 echo "Success!"
 
 echo -e
+
+sudo ip route flush cache
+
+sudo ip -s -s neigh flush all
 
 else
 
