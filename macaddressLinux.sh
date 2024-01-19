@@ -180,7 +180,11 @@ sudo ip route flush cache
 
 sudo ip -s -s neigh flush all
 
-sudo systemctl restart networkmanager
+sleep 2
+
+sudo systemctl restart NetworkManager
+
+sleep 2
 
 else
 
