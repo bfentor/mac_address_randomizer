@@ -180,6 +180,8 @@ sudo ip route flush cache
 
 sudo ip -s -s neigh flush all
 
+sudo systemctl restart networkmanager
+
 else
 
 	echo "Failed"
